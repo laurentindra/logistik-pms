@@ -30,7 +30,7 @@
     </div>
     @endif
 
-    <form method="POST" action="{{ route('login.post') }}">
+    <form method="POST" action="/login">
       @csrf
       <div class="form-group">
         <label class="form-label" for="email">Email</label>
