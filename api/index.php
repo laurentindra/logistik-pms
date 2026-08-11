@@ -25,13 +25,15 @@ foreach ($storageDirs as $dir) {
     }
 }
 
-// Override environment variables for Vercel Serverless
+// Environment variables for Vercel Serverless
 putenv('DB_CONNECTION=sqlite');
 putenv('DB_DATABASE=' . $dbPath);
 putenv('VIEW_COMPILED_PATH=/tmp/storage/framework/views');
+putenv('APP_STORAGE=/tmp/storage');
 $_ENV['DB_CONNECTION'] = 'sqlite';
 $_ENV['DB_DATABASE'] = $dbPath;
 $_ENV['VIEW_COMPILED_PATH'] = '/tmp/storage/framework/views';
+$_ENV['APP_STORAGE'] = '/tmp/storage';
 
 // Forward to Laravel entrypoint
 require __DIR__ . '/../public/index.php';

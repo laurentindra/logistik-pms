@@ -25,6 +25,7 @@
     }
   ],
   "env": {
+    "PHP_VERSION": "8.3",
     "APP_ENV": "production",
     "APP_DEBUG": "true",
     "APP_KEY": "base64:O1HZPYGrKmJPKTOOO0w7MoqGaeAT61Tx6RZque+CWjw=",
