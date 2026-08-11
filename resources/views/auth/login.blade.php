@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - Logistik PMS</title>
-  <link rel="stylesheet" href="/css/app.css" />
+  <style>
+    {!! file_get_contents(public_path('css/app.css')) !!}
+  </style>
 </head>
 <body>
 <div class="auth-page">
@@ -21,32 +23,33 @@
       </div>
     </div>
 
-    <div class="auth-title">Selamat Datang</div>
-    <div class="auth-sub">Silakan masuk untuk melanjutkan</div>
-
-    @if($errors->any())
-    <div class="alert alert-error" style="margin-bottom:16px">
+    @if(session('error'))
+    <div class="alert alert-error" style="margin-bottom:18px">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-      {{ $errors->first() }}
+      <div>{{ session('error') }}</div>
     </div>
     @endif
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login.post') }}">
       @csrf
       <div class="form-group">
-        <label class="form-label required" for="email">Email</label>
+        <label class="form-label" for="email">Email</label>
         <input type="email" id="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-               value="{{ old('email') }}" placeholder="admin@pms.co.id" autofocus required />
+               value="{{ old('email', 'admin@pms.co.id') }}" placeholder="admin@pms.co.id" required autofocus />
+        @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 
       <div class="form-group">
-        <label class="form-label required" for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required />
+        <label class="form-label" for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+               placeholder="••••••••" required />
+        @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
       </div>
 
-      <div class="form-group" style="display:flex;align-items:center;gap:8px">
-        <input type="checkbox" id="remember" name="remember" style="width:auto">
-        <label for="remember" style="margin:0;font-size:13px;color:var(--text-mid)">Ingat saya</label>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mid);cursor:pointer">
+          <input type="checkbox" name="remember" style="accent-color:var(--primary)" /> Ingat saya
+        </label>
       </div>
 
       <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center">

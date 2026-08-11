@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>@yield('title', 'Dashboard') - Logistik PMS</title>
-  <link rel="stylesheet" href="/css/app.css" />
+  <style>
+    {!! file_get_contents(public_path('css/app.css')) !!}
+  </style>
   @stack('styles')
 </head>
 <body>
